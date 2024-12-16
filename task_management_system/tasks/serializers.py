@@ -17,9 +17,12 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    owner = UserSerializer(read_only=True)
+    owner = UserSerializer(read_only=True)  # Владелец — только для чтения
     shared_with = UserSerializer(many=True, read_only=True)
     shared_groups = GroupSerializer(many=True, read_only=True)
+    deadline = serializers.DateTimeField(
+        allow_null=True, required=False
+    )  # Поле deadline доступно для записи
 
     class Meta:
         model = Task
